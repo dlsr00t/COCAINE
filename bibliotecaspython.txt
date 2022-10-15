@@ -1,0 +1,18 @@
+pywhatkit #= pip3 install pywhatkit
+pyautogui #= pip3 install pyautogui
+pyaudio #= sudo apt install portaudio19-dev python-pyaudio && pip3 install pyaudio
+SpeechRecognition #= pip3 install SpeechRecognition
+#geckodriver
+selenium #= pip3 install selenium
+gtts #= pip3 install gtts
+pyalsaaudio #= pip3 install pyalsaaudio
+pygame #= pip3 install pygame
+playsound #= pip3 install playsound
+requests #= pip3 install requests
+wikipedia #= pip3 install wikipedia
+#pytesseract = ?
+#opencv
+#tensorflow = ?
+#sciktlearn = ?
+emojis #= pip3 install emojis
+#vosk = ?
