@@ -16,10 +16,10 @@ def TermInstall():
 	for lib1 in libs_t:
 		a = sp.run(f'sudo apt -y install {lib1}', shell=True, capture_output=True)
 		if a.returncode != 0:
-			print(f'Nao foi possivel installar:  [{lib1}]')
+			print(f'\033[1;31mNao foi possivel installar o pacote:  [{lib1}]\033[m')
 			exit()
 		else:
-			print(f'A biblioteca {lib1} foi instalada com sucesso!')
+			print(f'\033[32mO pacote {lib1} foi instalado com sucesso!\033[m')
 
 	TermInstall.status = 'Fim'
 
@@ -27,24 +27,35 @@ def TermInstall():
 def PipInstall():
 	libs_pip = ['playwright', 'pywhatkit', 'pyautogui', 
 	'SpeechRecognition', 'selenium', 'gtts', 'pyalsaaudio', 'pygame',
-	'playsound', 'requests', 'wikipedia', 'emojis', 'opencv-python']
+	'playsound', 'requests', 'wikipedia', 'emoji', 'opencv-python']
 
 	for lib2 in libs_pip:
 		b = sp.run(f'pip3 install {lib2}', shell=True, capture_output=True)
 		if (b.returncode != 0):
-			print('FATAL ERROR')
-			print(f"Nao foi possivel installar a biblioteca {lib2}")
+			print('\033[1;31mFATAL ERROR\033[m')
+			print(f"\033[1;31mNao foi possivel installar a biblioteca {lib2}!\033[m")
 			exit()
 		else:
-			print(f"A biblioteca {lib2} foi instalada com sucesso!")
+			print(f"\033[32mA biblioteca {lib2} foi instalada com sucesso!\033[m")
 
 	PipInstall.status = 'Fim'
 
 
 if os.uname().sysname == 'Linux':
+	os.system("clear")
 	if os.getuid() != 0:
-		print("Voce DEVE rodar esse programa como superusuario(root)!")
-		exit()
+		print("\033[1;31mVoce DEVE rodar esse programa como superusuario(root)!\033[m")
+		print("\033[4;33mSe vc executar como usuario normal isso pode nn funcionar corretamente.\033[m")
+		while True:
+			escolha = input("\n\nVoce realmente quer rodar como um usuario comum?[Sim/Nao]")
+			if (escolha == 'nao') or (escolha == 'Nao') or (escolha == 'n') or (escolha == 'N'):
+				exit()
+			elif (escolha == 'sim') or(escolha == 'Sim') or (escolha == 's') or (escolha == 'S'):
+				print("Prosseguindo....")
+				break
+			else:
+				print("Vc nn digitou uma opcao valida")
+
 	
 	thread1 = threading.Thread(target=TermInstall)
 	thread2 = threading.Thread(target=PipInstall)
@@ -54,7 +65,6 @@ if os.uname().sysname == 'Linux':
 	while True:
 		try:
 			if TermInstall.status == 'Fim':
-				print('fim da thread TermInstall')
 				break
 		except:
 			pass
@@ -62,31 +72,32 @@ if os.uname().sysname == 'Linux':
 	while True:
 		try:
 			if PipInstall.status == 'Fim':
-				print('fim da thread PipInstall')
 				break
 		except:
 			pass
 
 	libs_pip2 = ['pyaudio', 'pytesseract']
 	for lib in libs_pip2:
-		#async_call = pool.apply_async(TermInstall)
 		c = sp.run(f'pip install {lib}', shell=True, capture_output=True)
+		
 		if (c.returncode != 0):
-			print(f"Nao foi possivel instalar {lib}")
+			print(f"\033[1;31mNao foi possivel instalar {lib}!\033[m")
 			exit()
 		else:
-			print(f"A biblioteca {lib} foi instalada com sucesso")
+			print(f"\033[32mA biblioteca {lib} foi instalada com sucesso!\033[m")
 
+	print("\n\n\n\033[4;33mInstalando o playwright, isso pode demorar alguns minutos.\033[m")
+	print("\033[4;33mPor favor aguarde...\033[m")
 	d = sp.run("playwright install", shell=True, capture_output=True)
+	
 	if (c.returncode != 0):
-		print("Nao foi possivel rodar o comando {playwright install}")
+		print("\033[1;31mNao foi possivel rodar o comando {playwright install}\033[m")
 		exit()
 	else:
-		print("Todas as instalacoes foram concluidas ;)")
+		print("Todas as instalacoes foram concluidas \U0001f609")
 		input("Pressione Enter para sair! ")
 		sp.run("clear")
 
 
 elif os.uname().sysname == 'Windows':
 	print("coming soon")
-
